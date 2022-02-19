@@ -8,7 +8,6 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Photo;
 use App\Models\Coupon;
-use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -24,67 +23,41 @@ class PhotoController extends Controller
     public $taxAfterDiscount;
     public $totalAfterDiscount;
 
-
-
-    // voucher
-
-
-
     public function voucher()
     {
-        $photo = Voucher::all();
-        return view('admin.all-vouchers',['vouchers' => $photo]);
-    }
+        $photo = Coupon::all();
 
+        return view('admin.all-vouchers', ['vouchers' => $photo]);
+    }
 
     public function crvoucher()
     {
         return view('admin.create-vouchers');
     }
 
-
     public function addvoucher(request $request)
     {
         $totalWanted = 2;
 
-
-        for ($i = 0; $i < $totalWanted; $i++ ) {
-            $voucher = new Voucher();
-            $voucher->code = rand();
-            $voucher->value = $request->input('value');
-            $voucher->save();
+        for ($i = 0; $i < $totalWanted; $i++) {
+            $coupon = new Coupon();
+            $coupon->code = rand();
+            $coupon->value = $request->input('value');
+            $coupon->save();
         }
 
-        $photo = Voucher::all();
-        // return view('admin.all-vouchers',['vouchers' => $photo]);
-        return view('admin.all-vouchers',['vouchers' => $photo])->with('message', 'KUPONAT U GNENERUAN');
-        // return $request->input('value');
-        // $photo = new Voucher;
-        // $value->value = $request->input('value');
+        $photo = Coupon::all();
 
-        $photo = Voucher::find(0);
-        $voucher = $photo->createVouchers(2, [
-            'value' => $request->input('value')
-        ]);
-
-        $voucher->save();
-        return view('admin.create-vouchers', ['vouchers' => $voucher]);
-
+        return view('admin.all-vouchers', ['vouchers' => $photo])->with('message', 'KUPONAT U GNENERUAN');
     }
 
     public function destroy($id)
-        {
-            $voucher= Voucher::where('id', $id)->get();
-            $voucher->delete();
+    {
+        $voucher= Coupon::where('id', $id)->get();
+        $voucher->delete();
 
-            return view('admin.all-vouchers');
-        }
-
-
-
-
-    // voucher END
-
+        return view('admin.all-vouchers');
+    }
 
     public function index()
     {
@@ -129,15 +102,17 @@ class PhotoController extends Controller
                 DB::table('photos')->insert($photos);
             }
 
-            // Order has been saved, now redirect to info
-            return view('dergo-fotografite.info')->with('orderId', $orderId);
+            return redirect()->route('ngarko-foto.shfaq-infot', ['orderId' => $orderId]);
         }
     }
 
-    public function saveInfo(Request $request)
-
+    public function showInfos($orderId)
     {
+        return view('dergo-fotografite.info')->with('orderId', $orderId);
+    }
 
+    public function saveInfo(Request $request)
+    {
         $userId = Auth::user()->id;
 
         $currentUser = User::find($userId);
@@ -156,47 +131,59 @@ class PhotoController extends Controller
 
         $currentUser->save();
 
-        $photo = Photo::where('folder_name', $request->orderId)->first();
-        $totalPictures = Photo::where('folder_name', $request->orderId)->count();
+        return redirect()->route('ngarko-foto.konfirmimi-final', ['orderId' => $request->orderId]);
+    }
+
+    public function lastConfirmationView($orderId)
+    {
+        $photo = Photo::where('folder_name', $orderId)->first();
+        $orderCoupon = $photo->coupon;
+        $totalPictures = Photo::where('folder_name', $orderId)->count();
 
         $pricePerPicture = 1;
-
         $posta = 2;
 
-        if($totalPictures <= 4) {
+        if ($totalPictures <= 4) {
             $pricePerPicture = 1;
         }
 
-        if ( in_array($totalPictures, range(5,9)) ) {
+        if (in_array($totalPictures, range(5, 9))) {
             $pricePerPicture = 0.60;
         }
 
-        if ( in_array($totalPictures, range(10,49)) ) {
+        if (in_array($totalPictures, range(10, 49))) {
             $pricePerPicture = 0.50;
         }
 
-        if ( in_array($totalPictures, range(50,99)) ) {
+        if (in_array($totalPictures, range(50, 99))) {
             $pricePerPicture = 0.20;
         }
 
-        if($totalPictures > 100) {
+        if ($totalPictures > 100) {
             $pricePerPicture = 0.12;
         }
 
-
         $total = $totalPictures * $pricePerPicture + $posta;
 
+        // Apply discount
+        if($orderCoupon) {
+            $total = $total - $orderCoupon->value;
+        }
 
-        // Final
+        $discountFromCoupon = $orderCoupon ? $orderCoupon->value : null;
 
-
-        return view('dergo-fotografite.final', ['order' => $photo, 'totalPictures' => $totalPictures, 'pricePerPicture' => $pricePerPicture, 'total' => $total, 'posta' => $posta]);
+        return view('dergo-fotografite.final', ['order' => $photo, 'totalPictures' => $totalPictures, 'pricePerPicture' => $pricePerPicture, 'total' => $total, 'posta' => $posta, 'discountFromCoupon' => $discountFromCoupon]);
     }
 
+    public function lastConfirmationSave(Request $request) {
+        $orderId = $request->orderId;
 
+        $photo = Photo::where('folder_name', $orderId)->first();
+        $photo->status = 'Pending';
+        $photo->save();
 
-
-
+        return redirect()->route('porosit.shfaq');
+    }
 
     public function download($orderId)
     {
@@ -219,49 +206,37 @@ class PhotoController extends Controller
         return response()->download($newZipfileName)->deleteFileAfterSend(true);
     }
 
-    // CUPON CODE
-
-
-
-
     public function applyCouponCode()
     {
-        $coupon = Coupon::where('code',$this->couponCode)->subtotal()->first();
-        if(!$coupon)
-            {
-                session()->flash('coupon_message','Kodi i kuponit është i pavlefshëm!');
-                return;
-            }
+        $coupon = Coupon::where('code', $this->couponCode)->subtotal()->first();
+        if (!$coupon) {
+            session()->flash('coupon_message', 'Kodi i kuponit është i pavlefshëm!');
+            return;
+        }
 
-        session()->put('coupon',[
+        session()->put('coupon', [
             'code' => $coupon->code,
             'type' => $coupon->type,
             'value' => $coupon->value,
-            // 'cart_value' => $coupon->cart_value
         ]);
-
     }
 
     public function calculateDiscounts()
     {
-        if(session()->has('coupon'))
-        {
-                if(session()->get('coupon')['type'] == 'fixed')
-                {
-                    $this->discount = session()->get('coupon')['value'];
-                }
-                    else
-                    {
-                        $this->discount = (Cart::instance('cart')->subtotal() * session()->get('coupon')['value'])/100;
-                    }
-                    $this->subtotalAfterDiscount = Cart::instance('cart')->subtotal() - $this->discount;
-                    // $this->taxAfterDiscount = ($this->subtotalAfterDiscount * config('cart.tax'))/100;
-                    $this->totalAfterDiscount = $this->subtotalAfterDiscount +$this->taxAfterDiscount;
+        if (session()->has('coupon')) {
+            if (session()->get('coupon')['type'] == 'fixed') {
+                $this->discount = session()->get('coupon')['value'];
+            } else {
+                $this->discount = (Cart::instance('cart')->subtotal() * session()->get('coupon')['value'])/100;
+            }
+            
+            $this->subtotalAfterDiscount = Cart::instance('cart')->subtotal() - $this->discount;
+            $this->totalAfterDiscount = $this->subtotalAfterDiscount +$this->taxAfterDiscount;
         }
     }
 
     public function removeCoupon()
-        {
-            session()->forget('coupon');
-        }
+    {
+        session()->forget('coupon');
     }
+}

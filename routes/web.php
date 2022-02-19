@@ -1,9 +1,7 @@
 <?php
-use Illuminate\Support\Facades\URL;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\AllUsersController;
 use App\Http\Controllers\UserPorositeController;
@@ -12,18 +10,24 @@ use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
 
-
-
-
 // Public Routes
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Dergo fotografit
 Route::get('/dergo-fotografite', [PhotoController::class, 'index'])->name('dergo.fotografite');
 Route::post('dergo-fotografite/ruaj', [PhotoController::class, 'saveRecord'])->name('ngarko-foto/save');
+Route::get('dergo-fotografite/shfaq-infot/{orderId}', [PhotoController::class, 'showInfos'])->name('ngarko-foto.shfaq-infot');
 Route::post('dergo-fotografite/ruaj-infot', [PhotoController::class, 'saveInfo'])->name('ngarko-foto.infot');
-Route::get('porosia/ruajtur', [UserPorositeController::class, 'vieworder'])->name('porosia.ruajtur');
+Route::get('/dergo-fotografit/konfirmimi-final/{orderId}', [PhotoController::class, 'lastConfirmationView'])->name('ngarko-foto.konfirmimi-final');
+Route::post('/dergo-fotografit/konfirmimi-final', [PhotoController::class, 'lastConfirmationSave'])->name('ngarko-foto.ruaj-konfirmimin-final');
 
+// View Orders
+Route::get('porosit', [UserPorositeController::class, 'viewOrders'])->name('porosit.shfaq');
+
+// Coupon Routes
+Route::post('coupons/apply', [CouponController::class, 'apply'])->name('coupons.apply');
 
 Route::get('/rreth-nesh', function () {
     return view('rreth-nesh');

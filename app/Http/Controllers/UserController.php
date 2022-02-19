@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
     public function user($id)
     {
-        $user = AlbumController::find($id);
-        return view('albums.index', compact('user','id'));
+        return;
     }
-
 }

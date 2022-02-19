@@ -8,7 +8,6 @@
         "php": "^7.3|^8.0",
         "aberkanidev/laravel-coupons": "^1.1",
         "bastinald/laravel-livewire-routes": "^3.0",
-        "beyondcode/laravel-vouchers": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",

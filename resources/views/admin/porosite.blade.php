@@ -359,6 +359,15 @@
                             <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                               Adresa
                             </th>
+
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                              Sasia
+                            </th>
+
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                              Totali
+                            </th>
+
                             <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                               SHKARKO
                             </th>
@@ -396,6 +405,15 @@
                             <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                               {{$order->author->address}}
                             </td>
+
+                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                              {{$order->sasia()}}
+                            </td>
+
+                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                            {{$order->total()}}
+                            </td>
+
                             <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
 
                               <form method="post" action="{{ route('admin/photo/download',$order->folder_name) }}" accept-charset="UTF-8">
@@ -405,12 +423,10 @@
                                   <span>SHKARKO</span>
                                 </button>
                               </form>
-
-
                             </td>
 
                             <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-
+                              {{ $order->status }}
                               <div class="dropdown">
                                 <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Statusi
                                   <span class="caret"></span></button>

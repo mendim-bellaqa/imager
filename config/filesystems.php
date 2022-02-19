@@ -18,11 +18,6 @@ return [
     'table' => 'coupons',
 
     /*
-     * Database table name for voucherable models
-     */
-    'voucherable_table' => 'voucherables',
-
-    /*
      * List of characters that will be used for coupon code generation.
      */
     'characters' => '23456789ABCDEFGHJKLMNPQRSTUVWXYZ',

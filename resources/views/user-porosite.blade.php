@@ -75,40 +75,38 @@
                           </tr>
                             </thead>
                         <tbody>
-
-                          @foreach($userorders as $userorder)
-                          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              {{-- {{$userorder['id']}} --}}
-                              {{ $userorder->user->name }}
-                            </td>
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder->author->name}}
-                              {{-- {{ dd($order->author) }} --}}
-                            </td>
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder['folder_name']}}
-                            </td>
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder->author->email}}
-                            </td>
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder->author->phone_number}}
-                            </td>
-
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder->author->city}}
-                            </td>
-
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                              {{$userorder->author->address}}
-                            </td>
-
-                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                {{$userorder->author->status}}
+                          @foreach($userOrders as $userOrder)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                              <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{-- {{$userOrder['id']}} --}}
+                                {{ $userOrder->user->name }}
+                              </td>
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder->author->name}}
+                                {{-- {{ dd($order->author) }} --}}
+                              </td>
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder['folder_name']}}
+                              </td>
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder->author->email}}
+                              </td>
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder->author->phone_number}}
                               </td>
 
-                          </tr>
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder->author->city}}
+                              </td>
+
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                {{$userOrder->author->address}}
+                              </td>
+
+                              <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                  {{$userOrder->status}}
+                                </td>
+                            </tr>
                           @endforeach
                         </tbody>
                       </table>

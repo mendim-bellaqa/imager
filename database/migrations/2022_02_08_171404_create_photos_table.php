@@ -19,14 +19,12 @@ class CreatePhotosTable extends Migration
             $table->string('folder_name')->nullable();
             $table->string('path')->nullable();
             $table->string('status')->default('DRAFT');
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('coupon_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('datetime')->nullable();
             $table->timestamps();
         });
-        Schema::disableForeignKeyConstraints();
     }
-
-    
 
     /**
      * Reverse the migrations.
@@ -36,6 +34,5 @@ class CreatePhotosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('photos');
-        $table->dropForeign(['user_id']);
     }
 }

@@ -17,17 +17,24 @@
 <body>
     <div class="min-w-screen min-h-screen bg-gray-50 py-5">
         <div class="px-5">
+            @if($errors->any())
+                <div><h4>{{$errors->first()}}</h4></div>
+            @endif
+
             <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
                 <div class="w-full">
                     <div class="-mx-3 md:flex items-start">
                         <div class="px-3 md:w-7/12 lg:pr-10">
-                        <form action="{{ route('ngarko-foto.infot') }}"  method="POST">
+                        <form action="{{ route('coupons.apply') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="orderId" value="{{ $order->folder_name }}">
+
                             <div class="justify-items-center mb-6 pb-6 border-b border-gray-200">
                                 <div class="-mx-2 flex items-end justify-items-center">
                                     <div class="flex-grow px-2 lg:max-w-xs">
                                         <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Kodi i zbritjes</label>
                                         <div>
-                                            <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="xxxxxx" type="text"/>
+                                            <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="xxxxxx" type="text" name="code"/>
                                         </div>
                                     </div>
                                     <div class="px-2">
@@ -55,13 +62,25 @@
                                 </div>
                                 <br>
                                 <div class="w-full flex items-center">
-                                <div class="flex-grow">
-                                    <span class="text-gray-600">Posta</span>
+                                    <div class="flex-grow">
+                                        <span class="text-gray-600">Posta</span>
+                                    </div>
+                                    <div class="pl-3">
+                                        <span class="font-semibold">{{$posta}}</span>
+                                    </div>
                                 </div>
-                                <div class="pl-3">
-                                    <span class="font-semibold">{{$posta}}</span>
-                                </div>
-                            </div>
+
+                                @if($discountFromCoupon)
+                                    <br>
+                                    <div class="w-full flex items-center">
+                                        <div class="flex-grow">
+                                            <span class="text-gray-600">Zbritja nga Koponi</span>
+                                        </div>
+                                        <div class="pl-3">
+                                            <span class="font-semibold">- {{$discountFromCoupon}}</span>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
@@ -120,7 +139,6 @@
                                         <span class="text-gray-600 font-semibold">Adressa</span>
                                     </div>
                                     <div class="flex-grow pl-3">
-
                                         <span>{{ Auth::user()->address }}</span>
                                     </div>
                                     </div>
@@ -130,23 +148,24 @@
                                             <span class="text-gray-600 font-semibold">Numri i porosise</span>
                                         </div>
                                         <div class="flex-grow pl-3">
-
-                                            <span>{{$order->folder_name}}</span>
+                                            <span>{{ $order->folder_name }}</span>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
             <br>
-            <form method="post">
-                <li class="block text-center max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-200 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold">
-                    <a class="nav-link" href="{{route('porosia.ruajtur')}}">KONFIRMO</a>
-                    {{-- <a class="nav-link" method="post"  action="{{route('porosia.ruajtur', [$status])}}">KONFIRMO</a> --}}
-                </li>
+
+            <form method="post" action="{{ route('ngarko-foto.ruaj-konfirmimin-final') }}">
+                @csrf
+
+                <input type="hidden" name="orderId" value="{{ $order->folder_name }}">
+
+                <a href="{{ route('home') }}">Anulo</a> | 
+                <button type="submit">Konfirmo</button>
             </form>
         </div>
     </div>
