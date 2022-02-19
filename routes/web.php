@@ -54,6 +54,8 @@ Route::get('/dashboard/kuponat/krijo', [PhotoController::class, 'crvoucher'])->n
 
 Route::get('/dashboard/kuponat/gjenero', [PhotoController::class, 'addvoucher'])->name('voucher.generate');
 
+Route::put('/dashboard/kuponat/fshij/{id}', [PhotoController::class, 'destroy'])->name('voucher.destroy');
+
 
 
 Route::get('/admin/coupons',[AdminCouponsComponent::class, 'render'])->name('admin.coupons');

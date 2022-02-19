@@ -36,6 +36,12 @@
                                   </li>
                             </div>
 
+                            @if(Session::has('success'))
+                                <div class="alert alert-success">
+                                    {{Session::get('success')}}
+                                </div>
+                            @endif
+
                             <br><br>
 
                             <th scope="col" class="text-center py-3 px-6 text-xs font-medium tracking-wider text-gray-700 uppercase dark:text-gray-400">
@@ -51,14 +57,16 @@
                             </th>
                         </tr>
                     </thead>
+
+
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                     @foreach ($vouchers as $voucher)
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td class="text-center py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$voucher->code}}</td>
                             <td class="text-center py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">{{$voucher->value}}</td>
                             <td class="text-center py-4 px-6 text-sm font-medium  whitespace-nowrap">
-                                <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">EDITO</a>
-                                <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">FSHIJ</a>
+
+                                <button type="button" method="delete"  class="text-blue-600 dark:text-blue-500 hover:underline">FSHIJ</button>
                             </td>
                         </tr>
                     @endforeach

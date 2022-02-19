@@ -45,7 +45,7 @@ class PhotoController extends Controller
 
     public function addvoucher(request $request)
     {
-        $totalWanted = 10;
+        $totalWanted = 2;
 
 
         for ($i = 0; $i < $totalWanted; $i++ ) {
@@ -55,7 +55,9 @@ class PhotoController extends Controller
             $voucher->save();
         }
 
-        return ;
+        $photo = Voucher::all();
+        // return view('admin.all-vouchers',['vouchers' => $photo]);
+        return view('admin.all-vouchers',['vouchers' => $photo])->with('message', 'KUPONAT U GNENERUAN');
         // return $request->input('value');
         // $photo = new Voucher;
         // $value->value = $request->input('value');
@@ -70,6 +72,13 @@ class PhotoController extends Controller
 
     }
 
+    public function destroy($id)
+        {
+            $voucher= Voucher::where('id', $id)->get();
+            $voucher->delete();
+
+            return view('admin.all-vouchers');
+        }
 
 
 
