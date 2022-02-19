@@ -37,7 +37,7 @@ class PhotoController extends Controller
 
     public function addvoucher(request $request)
     {
-        $totalWanted = 2;
+        $totalWanted = 10;
 
         for ($i = 0; $i < $totalWanted; $i++) {
             $coupon = new Coupon();
@@ -229,7 +229,7 @@ class PhotoController extends Controller
             } else {
                 $this->discount = (Cart::instance('cart')->subtotal() * session()->get('coupon')['value'])/100;
             }
-            
+
             $this->subtotalAfterDiscount = Cart::instance('cart')->subtotal() - $this->discount;
             $this->totalAfterDiscount = $this->subtotalAfterDiscount +$this->taxAfterDiscount;
         }

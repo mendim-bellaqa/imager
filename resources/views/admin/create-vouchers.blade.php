@@ -35,7 +35,7 @@
 
         <div
           class="text-gray-800 text-2xl flex justify-center border-b-2 py-2 mb-4">
-          GJENERO KUPONA 100
+          GJENERO KUPONA
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">

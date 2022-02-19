@@ -118,7 +118,7 @@
                       <a class="nav-link" href="/llogaria">Llogaria</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href="/porosia/ruajtur">Porosit e mia</a>
+                      <a class="nav-link" href="/porosit">Porosit e mia</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
                     <a class="nav-link" href="/rreth-nesh">Rreth nesh</a>

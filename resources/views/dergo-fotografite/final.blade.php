@@ -159,15 +159,15 @@
             </div>
             <br>
 
-            <form method="post" action="{{ route('ngarko-foto.ruaj-konfirmimin-final') }}">
-                @csrf
-
-                <input type="hidden" name="orderId" value="{{ $order->folder_name }}">
-
-                <a href="{{ route('home') }}">Anulo</a> | 
-                <button type="submit">Konfirmo</button>
-            </form>
         </div>
+
+        <form class="flex flex-col my-auto items-center bgimg bg-cover" method="post" action="{{ route('ngarko-foto.ruaj-konfirmimin-final') }}">
+            @csrf
+
+            <input type="hidden" name="orderId" value="{{ $order->folder_name }}">
+            <a  class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700" type="submit" href="{{ route('home') }}">Anulo</a>
+            <button class=" text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700" type="submit">Konfirmo</button>
+        </form>
     </div>
 </body>
     <script>
