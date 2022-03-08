@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-        <title>Ballina - Fotoprinteri</title>
+        <title>HOME - IMAGER</title>
         <meta charset="utf-8">
 
 
@@ -109,19 +109,19 @@
              <nav class="navbar">
                <ul class="navbar-nav list-group">
                   <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href="/">Ballina</a>
+                      <a class="nav-link" href="/">HOME</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
-                    <a class="nav-link"href="{{ route('dergo.fotografite') }}">Dërgo fotografitë</a>
+                    <a class="nav-link"href="{{ route('dergo.fotografite') }}">SEND IMAGES</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href="/llogaria">Llogaria</a>
+                      <a class="nav-link" href="/llogaria">ACCOUNT</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href="/porosit">Porosit e mia</a>
+                      <a class="nav-link" href="/porosit">MY ORDERS</a>
                   </li>
                   <li class="nav-item text-center list-group-item">
-                    <a class="nav-link" href="/rreth-nesh">Rreth nesh</a>
+                    <a class="nav-link" href="/rreth-nesh">ABOUT US</a>
                 </li>
                 {{-- <li class="nav-item text-center list-group-item">
                 <a class="nav-link" href="/albums">Albums</a>
