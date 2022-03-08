@@ -35,26 +35,26 @@
                         <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
 
                             <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
-                            <span>Ngarkoni fotot tuaja</span>
+                            <span>Upload here</span>
                             </p>
 
                             <input name="fileupload[]" required="required" multiple id="hidden-input" type="file" multiple class="hidden" />
 
 
                             <button  id="button" class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-                            Ngarko ketu
+                             UPLOAD
 
                             </button>
                         </header>
 
                         <h1 class="pt-8 pb-3 text-center font-semibold sm:text-lg text-gray-900">
-                            Fotot e ngarkuara
+                            Images uploaded
                         </h1>
 
                         <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
                             <li id="empty" class="h-full w-full text-center flex flex-col items-center justify-center">
                             <img class="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
-                            <span class="text-small text-gray-500">Asnjë foto e zgjedhur</span>
+                            <span class="text-small text-gray-500">No photos selected</span>
                             </li>
                         </ul>
                     </section>
@@ -62,11 +62,11 @@
                     <footer class="flex justify-center px-8 pb-8 pt-4">
 
                     <button id="cancel" class="rounded-sm px-3 py-1 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-                        Anulo
+                        Cancel
                     </button>
 
                     <button id="submit" class="justify-right rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none">
-                        Konfirmo
+                        Confirm
                     </button>
 
                     </footer>
